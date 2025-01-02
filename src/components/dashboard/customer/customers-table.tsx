@@ -1,42 +1,24 @@
 'use client';
 
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
 import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import dayjs from 'dayjs';
+//import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 
 import { useSelection } from '@/hooks/use-selection';
 
-function noop(): void {
+function noop() {
   // do nothing
-}
-
-export interface Customer {
-  id: string;
-  avatar: string;
-  name: string;
-  email: string;
-  address: { city: string; state: string; country: string; street: string };
-  phone: string;
-  createdAt: Date;
-}
-
-interface CustomersTableProps {
-  count?: number;
-  page?: number;
-  rows?: Customer[];
-  rowsPerPage?: number;
 }
 
 export function CustomersTable({
@@ -44,9 +26,9 @@ export function CustomersTable({
   rows = [],
   page = 0,
   rowsPerPage = 0,
-}: CustomersTableProps): React.JSX.Element {
+}) {
   const rowIds = React.useMemo(() => {
-    return rows.map((customer) => customer.id);
+    return rows.map((customer) => customer.Id);
   }, [rows]);
 
   const { selectAll, deselectAll, selectOne, deselectOne, selected } = useSelection(rowIds);
@@ -60,56 +42,47 @@ export function CustomersTable({
         <Table sx={{ minWidth: '800px' }}>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  checked={selectedAll}
-                  indeterminate={selectedSome}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      selectAll();
-                    } else {
-                      deselectAll();
-                    }
-                  }}
-                />
-              </TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Signed Up</TableCell>
+              <TableCell>Activo</TableCell>
+              <TableCell>Código</TableCell>
+              <TableCell>Descripcion Producto</TableCell>
+              <TableCell>Departamento</TableCell>
+              <TableCell>Costo</TableCell>
+              <TableCell>Precio Venta</TableCell>
+              <TableCell>Inv. Minimo</TableCell>
+              <TableCell>Inv. Maximo</TableCell>
+              <TableCell>Tipo Venta</TableCell>
+              <TableCell>Proveedor</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => {
-              const isSelected = selected?.has(row.id);
-
               return (
-                <TableRow hover key={row.id} selected={isSelected}>
+                <TableRow hover key={row.Id}>
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={isSelected}
+                      checked={row.Activo}
                       onChange={(event) => {
                         if (event.target.checked) {
-                          selectOne(row.id);
+                          selectOne(row.Id);
                         } else {
-                          deselectOne(row.id);
+                          deselectOne(row.Id);
                         }
                       }}
                     />
                   </TableCell>
-                  <TableCell>
-                    <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
-                      <Avatar src={row.avatar} />
-                      <Typography variant="subtitle2">{row.name}</Typography>
-                    </Stack>
-                  </TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>
-                    {row.address.city}, {row.address.state}, {row.address.country}
-                  </TableCell>
-                  <TableCell>{row.phone}</TableCell>
-                  <TableCell>{dayjs(row.createdAt).format('MMM D, YYYY')}</TableCell>
+                  <TableCell>{row.Codigo}</TableCell>
+                  <TableCell>{row.DescripcionArticulo}</TableCell>
+                  <TableCell>{row.Departamento}</TableCell>
+                  <TableCell>{row.Costo}</TableCell>
+                  <TableCell>{row.PrecioVenta}</TableCell>
+                  <TableCell>{row.InventarioMinimo}</TableCell>
+                  <TableCell>{row.InventarioMaximo}</TableCell>
+                  <TableCell>{row.TipoDeVenta}</TableCell>
+                  <TableCell>{row.Proveedor}</TableCell>
+                  <TableCell><IconButton onClick={() => handleEdit(row.Id)}>
+                    <EditIcon />
+                  </IconButton></TableCell>
                 </TableRow>
               );
             })}
