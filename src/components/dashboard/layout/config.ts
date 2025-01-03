@@ -3,8 +3,8 @@ import { paths } from '@/paths';
 
 export const navItems = [
   { key: 'dashboard', title: 'Dashboard', href: paths.dashboard.overview, icon: 'chart-pie' },
-  { key: 'productos', title: 'Gestión de Productos', href: paths.dashboard.customers, icon: 'users' },
-  { key: 'mercancias', title: 'Recepción de Mercancías', href: paths.dashboard.integrations, icon: 'plugs-connected' },
+  { key: 'productos', title: 'Articulos', href: paths.dashboard.customers, icon: 'users' },
+  { key: 'proveedores', title: 'Proveedores', href: paths.dashboard.integrations, icon: 'plugs-connected' },
   { key: 'stock', title: 'Control de Stock', href: paths.dashboard.integrations, icon: 'plugs-connected' },
   { key: 'mercancias', title: 'Recepción de Mercancías', href: paths.dashboard.integrations, icon: 'plugs-connected' },
   { key: 'mercancias', title: 'Recepción de Mercancías', href: paths.dashboard.integrations, icon: 'plugs-connected' },

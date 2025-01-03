@@ -1,5 +1,5 @@
-import * as React from 'react';
-import type { Metadata } from 'next';
+'use client';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -12,8 +12,8 @@ import { config } from '@/config';
 import { CustomersFilters } from '@/components/dashboard/customer/customers-filters';
 import { CustomersTable } from '@/components/dashboard/customer/customers-table';
 import type { Customer } from '@/components/dashboard/customer/customers-table';
+import Page_ArticulosAdd from '@/components/dashboard/customer/Page_ArticulosAdd';
 
-export const metadata = { title: `Customers | Dashboard | ${config.site.name}` } satisfies Metadata;
 
 const customers = [
   {
@@ -58,6 +58,19 @@ const customers = [
 ] satisfies Customer[];
 
 export default function Page(): React.JSX.Element {
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  
+
   const page = 0;
   const rowsPerPage = 5;
 
@@ -72,9 +85,10 @@ export default function Page(): React.JSX.Element {
           </Stack>
         </Stack>
         <div>
-          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained">
+          <Button startIcon={<PlusIcon fontSize="var(--icon-fontSize-md)" />} variant="contained" onClick={handleClickOpen}>
             Agregar
           </Button>
+          <Page_ArticulosAdd open={open} setOpen={setOpen} />
         </div>
       </Stack>
       <CustomersFilters />
