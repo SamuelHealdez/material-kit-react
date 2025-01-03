@@ -60,7 +60,6 @@ const customers = [
 export default function Page(): React.JSX.Element {
 
   const [open, setOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,10 +69,7 @@ export default function Page(): React.JSX.Element {
     setOpen(false);
   };
 
-  const filteredCustomers = customers.filter((customer) =>
-    customer.DescripcionArticulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    customer.Codigo.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  
 
   const page = 0;
   const rowsPerPage = 5;
@@ -84,7 +80,7 @@ export default function Page(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3}>
         <Stack spacing={1} sx={{ flex: '1 1 auto' }}>
-          <Typography variant="h4">Articulos</Typography>
+          <Typography variant="h4">Proveedores</Typography>
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
           </Stack>
         </Stack>
@@ -95,11 +91,11 @@ export default function Page(): React.JSX.Element {
           <Page_ArticulosAdd open={open} setOpen={setOpen} />
         </div>
       </Stack>
-      <CustomersFilters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <CustomersFilters />
       <CustomersTable
         count={paginatedCustomers.length}
         page={page}
-        rows={filteredCustomers}
+        rows={paginatedCustomers}
         rowsPerPage={rowsPerPage}
       />
     </Stack>

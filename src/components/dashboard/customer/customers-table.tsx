@@ -21,12 +21,25 @@ function noop() {
   // do nothing
 }
 
-export function CustomersTable({
-  count = 0,
-  rows = [],
-  page = 0,
-  rowsPerPage = 0,
-}) {
+interface Customer {
+  Id: number;
+  Activo: boolean;
+  Codigo: string;
+  DescripcionArticulo: string;
+  Departamento: string;
+  Costo: number;
+  PrecioVenta: number;
+  InventarioMinimo: number;
+  InventarioMaximo: number;
+  TipoDeVenta: string;
+  Proveedor: string;
+}
+
+interface CustomersTableProps {
+  rows: Customer[];
+}
+
+export function CustomersTable({ rows }: CustomersTableProps): React.JSX.Element {
   const rowIds = React.useMemo(() => {
     return rows.map((customer) => customer.Id);
   }, [rows]);
@@ -92,11 +105,11 @@ export function CustomersTable({
       <Divider />
       <TablePagination
         component="div"
-        count={count}
+        count={rows.length}
         onPageChange={noop}
         onRowsPerPageChange={noop}
-        page={page}
-        rowsPerPage={rowsPerPage}
+        page={0}
+        rowsPerPage={5}
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Card>
